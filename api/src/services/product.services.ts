@@ -1,12 +1,12 @@
 import { CosmosClient } from "@azure/cosmos";
 
 // Set connection string from CONNECTION_STRING value in local.settings.json
-const CONNECTION_STRING = process.env.CONNECTION_STRING;
+const connectionString = process.env.CONNECTION_STRING!;
 
 const productService = {
   init() {
     try {
-      this.client = new CosmosClient(CONNECTION_STRING);
+      this.client = new CosmosClient(connectionString);
       this.database = this.client.database("tailwind");
       this.container = this.database.container("products");
     } catch (err) {
@@ -34,6 +34,10 @@ const productService = {
     const result = await this.container.item(id, brandName).delete();
     return result;
   },
+  async deleteAll(id: string){
+    const result = await this.container.item(id).delete();
+    return result;
+  }
 };
 
 productService.init();

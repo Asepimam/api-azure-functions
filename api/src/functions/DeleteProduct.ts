@@ -13,6 +13,7 @@ export async function DeleteProduct(request: HttpRequest, context: InvocationCon
 
         // Delete the product using the productService
         const deletedProduct = await productService.delete(id, brandName);
+        // const deletedProduct = await productService.deleteAll(id);
 
         return {
             status: 200,
